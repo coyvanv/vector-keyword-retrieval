@@ -23,7 +23,7 @@ Copy
 Edit
 import nltk
 nltk.download('stopwords')
-```bash
+bash```
 📌 What You Need to Provide
 To use this code:
 
