@@ -23,7 +23,7 @@ Copy
 Edit
 import nltk
 nltk.download('stopwords')
-bash```
+```
 📌 What You Need to Provide
 To use this code:
 
@@ -34,6 +34,7 @@ To use this code:
 📐 Consistent dimensions: All embeddings (document and query) must be the same length.
 
 🚀 Example
+```bash
 python
 Copy
 Edit
@@ -61,4 +62,4 @@ results = retriever.retrieve_similar(
 for result in results:
     print(f"[{result.chunk_id}] {result.title} ({result.distance:.4f})")
     print(result.chunk_content)
-
+```
