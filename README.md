@@ -1,75 +1,63 @@
 # vector-keyword-retrieval
-Overview
-This project implements a hybrid document retrieval system using both BM25 (text-based relevance) and vector similarity (semantic matching via embeddings). It stores documents and their metadata in a CSV file and retrieves the most relevant chunks for a given query.
+# 🧠 Hybrid BM25 + Embedding Retriever
 
-The CSVRetriever class combines the strengths of classical keyword-based retrieval and modern embedding-based similarity search to return high-quality matches.
+This repository contains a hybrid document retrieval system that combines **BM25 keyword search** with **vector-based semantic search**. Documents are stored in a simple CSV format and can be queried using both textual and embedding-based input.
 
-Use Cases
-Search across large CSV-based corpora without needing a full database.
+## 🔍 Use Cases
 
-Combine semantic search (via embeddings) and traditional keyword search (BM25).
+- Search relevant text chunks using both meaning (embeddings) and keywords.
+- Build lightweight search tools without a full database.
+- Integrate into chatbots, RAG pipelines, or document indexing workflows.
+- Apply NLP on Dutch-language corpora (includes Dutch stopword handling).
 
-Ideal for projects where you want flexible, explainable document retrieval.
+## ⚙️ Requirements
 
-Useful in NLP prototypes, document clustering, chatbots, or knowledge base assistants.
+Install the required packages:
 
-Requirements & Setup
-Dependencies
-Make sure to install required Python packages:
-
-bash
-Copy
-Edit
+```bash
 pip install pandas numpy nltk rank_bm25
-Also, ensure NLTK stopwords are available:
+Also download NLTK stopwords once:
 
 python
 Copy
 Edit
 import nltk
 nltk.download('stopwords')
-What You Need to Provide
-To use this system effectively, you must provide:
+📌 What You Need to Provide
+To use this code:
 
-Embeddings
-You are responsible for generating and supplying the embedding vector (as a list of floats) when:
+📥 Document embeddings: You must generate your own embedding vectors (e.g. using OpenAI, HuggingFace, etc.).
 
-Adding documents via add_document(...)
+🧾 Query embeddings: The query passed to retrieve_similar() must also be embedded beforehand.
 
-Querying via retrieve_similar(...)
+📐 Consistent dimensions: All embeddings (document and query) must be the same length.
 
-Query Text (optional but recommended)
-If you supply query_text, it will be used in BM25 search alongside the embedding-based search.
-
-Consistent Embedding Length
-All vectors (document and query) should have the same dimensionality.
-
-Example Usage
+🚀 Example
 python
 Copy
 Edit
-retriever = CSVRetriever("docs.csv")
+retriever = CSVRetriever("data.csv")
 
-# Add document chunk
 retriever.add_document(
     content_id="doc1",
     chunk_id="1",
     embedding=[0.1, 0.2, 0.3],
     metadata={
-        "title": "Sample Doc",
-        "chunk_content": "This is a test document about cycling in Amsterdam.",
-        "url": "https://example.com",
+        "title": "Cycling Policy",
+        "chunk_content": "Amsterdam promotes cycling through new policies.",
         "municipality": "Amsterdam",
-        "source": "test-source"
+        "url": "https://example.com",
+        "source": "official-docs"
     }
 )
 
-# Retrieve top 5 relevant chunks
 results = retriever.retrieve_similar(
-    embedding=[0.1, 0.2, 0.3],  # same embedding size as document
-    query_text="cycling in the city",
-    top_k=5
+    embedding=[0.1, 0.2, 0.3],
+    query_text="bike infrastructure",
+    top_k=3
 )
 
-for r in results:
-    print(f"{r.title} ({r.distance:.4f}): {r.chunk_content}")
+for result in results:
+    print(f"[{result.chunk_id}] {result.title} ({result.distance:.4f})")
+    print(result.chunk_content)
+
