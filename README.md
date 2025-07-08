@@ -1,16 +1,16 @@
 # vector-keyword-retrieval
-# 🧠 Hybrid BM25 + Embedding Retriever
+# Hybrid BM25 + Embedding Retriever
 
 This repository contains a hybrid document retrieval system that combines **BM25 keyword search** with **vector-based semantic search**. Documents are stored in a simple CSV format and can be queried using both textual and embedding-based input.
 
-## 🔍 Use Cases
+## Use Cases
 
 - Search relevant text chunks using both meaning (embeddings) and keywords.
 - Build lightweight search tools without a full database.
 - Integrate into chatbots, RAG pipelines, or document indexing workflows.
 - Apply NLP on Dutch-language corpora (includes Dutch stopword handling).
 
-## ⚙️ Requirements
+##  Requirements
 
 Install the required packages:
 
@@ -24,16 +24,16 @@ Edit
 import nltk
 nltk.download('stopwords')
 ```
-📌 What You Need to Provide
+ What You Need to Provide
 To use this code:
 
-📥 Document embeddings: You must generate your own embedding vectors (e.g. using OpenAI, HuggingFace, etc.).
+ Document embeddings: You must generate your own embedding vectors (e.g. using OpenAI, HuggingFace, etc.).
 
-🧾 Query embeddings: The query passed to retrieve_similar() must also be embedded beforehand.
+ Query embeddings: The query passed to retrieve_similar() must also be embedded beforehand.
 
-📐 Consistent dimensions: All embeddings (document and query) must be the same length.
+ Consistent dimensions: All embeddings (document and query) must be the same length.
 
-🚀 Example
+ Example
 ```bash
 python
 Copy
@@ -63,3 +63,5 @@ for result in results:
     print(f"[{result.chunk_id}] {result.title} ({result.distance:.4f})")
     print(result.chunk_content)
 ```
+## possible improvements
+BM25 score nomalisation couldl be more strict to fit the 0-1 range that vector scores has, the current configuration makes the BM25 scores have more weight compared to the vector scores but that is done deliberatly as keyword hits are prioritised in the use case for which this code has been made.
