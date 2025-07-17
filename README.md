@@ -67,4 +67,4 @@ for result in results:
 BM25 score nomalisation could be more strict to fit the 0-1 range that vector scores has, the current configuration makes the BM25 scores have more weight compared to the vector scores but that is done deliberatly as keyword hits are prioritised in the use case for which this code has been made.
 
 ## license
-This code is free to use and copy, citing this repository as a source is optional.
+This code is free to use and no citations are needed.
